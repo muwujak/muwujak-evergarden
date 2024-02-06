@@ -1,0 +1,7 @@
+helmCharts:
+- name: hashicorp
+  repo: https://helm.releases.hashicorp.com
+  releaseName: vault
+  namespace: vault
+  version: 0.27.0 
+  valuesFile: helm-values.yaml

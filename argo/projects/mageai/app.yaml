@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mage-user
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: mage-ai
+  name: job-manager
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["batch", "extensions"]
+  resources: ["jobs", "jobs/status"]
+  verbs: ["create", "delete", "get"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: mage-job-manager
+  namespace: mage-ai
+subjects:
+- kind: ServiceAccount
+  name: mage-user # Name of the ServiceAccount
+  namespace: mage-ai
+roleRef:
+  kind: Role # This must be Role or ClusterRole
+  name: job-manager # This must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mage-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mage-server
+  namespace: mage-ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mage-server
+  template:
+    metadata:
+      labels:
+        app: mage-server
+    spec:
+      containers:
+      - name: mage-server
+        image: mageai/mageai:latest
+        ports:
+        - containerPort: 6789
+        volumeMounts:
+        - name: mage-fs
+          mountPath: /home/src
+        env:
+          - name: KUBE_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        envFrom:
+          - configMapRef:
+              name: mage-ai-config
+      volumes:
+      - name: mage-fs
+        persistentVolumeClaim:
+          claimName: mage-volume
+  strategy:
+    type: Recreate
+  serviceAccountName: mage-user
+
+---
+
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: mage-server
+#   # namespace: mage-ai
+# spec:
+#   containers:
+#   - name: mage-server
+#     image: mageai/mageai:latest
+#     ports:
+#     - containerPort: 6789
+#     volumeMounts:
+#     - name: mage-fs
+#       mountPath: /home/src
+#     env:
+#       - name: KUBE_NAMESPACE
+#         valueFrom:
+#           fieldRef:
+#             fieldPath: metadata.namespace
+#   volumes:
+#   - name: mage-fs
+#     hostPath:
+#       path: /path/to/mage_project
+#   serviceAccountName: mage-user
+  
+# currently we still using pod, but better migrate into deployment

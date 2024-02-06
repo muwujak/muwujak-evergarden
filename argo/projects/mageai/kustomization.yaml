@@ -1,0 +1,11 @@
+resources:
+# - app.yaml
+# - service.yaml
+
+helmCharts:
+- name: mageai
+  repo: https://mage-ai.github.io/helm-charts/
+  releaseName: mageai
+  namespace: mageai
+  version: 0.2.1
+  valuesFile: helm-values.yaml

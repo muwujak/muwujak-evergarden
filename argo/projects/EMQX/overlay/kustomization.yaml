@@ -1,0 +1,10 @@
+bases:
+- ../base
+
+helmCharts:
+- name: emqx
+  repo: https://repos.emqx.io/charts
+  releaseName: emqx-enterprise
+  namespace: emqx
+  version: 5.4.1
+  valuesFile: helm-values.yaml
