@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: muwujak-evergarden-charts
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://mujak27.github.io/muwujak-evergarden/
+  timeout: 10m0s
