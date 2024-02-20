@@ -15,5 +15,3 @@ spec:
         kind: HelmRepository
         name: muwujak-evergarden-charts
         namespace: flux-system
-
-  valuesFrom:
