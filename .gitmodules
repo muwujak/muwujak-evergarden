@@ -1,6 +1,6 @@
 [submodule "charts/netbox"]
 	path = charts/netbox
-	url = https://github.com/bootc/netbox-chart
+	url = https://github.com/mujak27/netbox-chart
 [submodule "charts/tile38"]
 	path = charts/tile38
-	url = https://github.com/nouney/chart-tile38
+	url = https://github.com/mujak27/chart-tile38
