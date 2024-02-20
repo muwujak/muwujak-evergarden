@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: ./flux/cluster/apps/doc/default/tile38/app
+  path: ./flux/cluster/apps/default/tile38/app
   prune: true
   sourceRef:
     kind: GitRepository
