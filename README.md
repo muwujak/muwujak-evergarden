@@ -10,6 +10,13 @@ Tasked with deploying and managing the intricate Kubernetes infrastructure that 
 
 As Violet encounters diverse challenges in scaling services, ensuring reliability, and optimizing communication pathways, she discovers the profound impact of her work on forging emotional bonds. The series delves into the synergy between technology and the human spirit, exploring themes of love, empathy, and personal growth.
 
-...
 
-This repo is simply my home lab repo
+---
+
+## Scope of this repo
+
+this repo contains:
+- gitops using argocd
+- gitops using flux
+- helm charts automated with github workflow
+- secrets using sops
