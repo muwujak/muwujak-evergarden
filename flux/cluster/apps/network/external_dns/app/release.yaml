@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external_dns
+  namespace: external_dns
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: external-dns
+      version: 1.13.1
+      sourceRef:
+        kind: HelmRepository
+        name: external_dns
+        namespace: flux-system
+  values:
+    provider: cloudflare
+    env:
+      - name: CF_API_EMAIL
+        value: ${SECRET_CLOUDFLARE_API_EMAIL}
+      - name: CF_API_KEY
+        value: ${SECRET_CLOUDFLARE_API_KEY}
+    sources: ["crd", "ingress"]
+    domainFilters: ["mujak.id"]
+    logLevel: info
+    serviceMonitor:
+      enabled: true
+    resources:
+      requests:
+        cpu: 25m
+        memory: 50Mi
+      limits:
+        cpu: 50m
+        memory: 100Mi
