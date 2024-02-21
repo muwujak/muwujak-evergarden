@@ -4,3 +4,4 @@ resources:
 - grafana.yaml
 - hashicorp.yaml
 - muwujak-evergarden.yaml
+- external-dns.yaml
