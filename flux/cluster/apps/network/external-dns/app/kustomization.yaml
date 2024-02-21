@@ -2,4 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./release.yaml
-  - ./dns_endpoint_crd.yaml
+  - ./dns-endpoint-crd.yaml
