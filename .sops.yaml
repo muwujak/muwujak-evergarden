@@ -1,0 +1,5 @@
+creation_rules:
+  - encrypted_regex: '^(data|stringData)$'
+    path_regex: '^.*\/cluster\/.*\.sops\.yaml$'
+    pgp: >-
+      C6DFC9C21E0A29B5C98DB2ECBEE8200417922B2C
