@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: external_dns
-  namespace: external_dns
+  namespace: external-dns
 spec:
   interval: 1h
   chart:
