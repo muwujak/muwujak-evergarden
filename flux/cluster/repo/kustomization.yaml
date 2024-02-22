@@ -5,3 +5,4 @@ resources:
 - hashicorp.yaml
 - muwujak-evergarden.yaml
 - external-dns.yaml
+- percona.yaml
