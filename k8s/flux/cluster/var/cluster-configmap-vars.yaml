@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: configmap
+metadata:
+    name: cluster-configmap-vars
+    namespace: flux-system
+type: Opaque
+stringData:
