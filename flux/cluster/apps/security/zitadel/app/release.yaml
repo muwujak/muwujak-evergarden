@@ -1,0 +1,47 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zitadel
+  namespace: security
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: zitadel
+      version: '7.3.2'
+      sourceRef:
+        kind: HelmRepository
+        name: zitadel
+        namespace: flux-system
+      interval: 1m
+  values:
+    replicaCount: 1
+    zitadel:
+      masterkey: ${SECRET_ZITADEL_MASTERKEY}
+      configmapConfig:
+        ExternalSecure: false
+        TLS:
+          Enabled: false
+      secretConfig:
+        ExternalDomain: sso.${SECRET_LOCAL_DOMAIN}
+        ExternalSecure: true
+        ExternalPort: 443
+        Database:
+          postgres:
+            Host: pg-16-cluster-rw.infrastructure.svc.cluster.local
+            Port: 5432
+            Database: zitadel
+            MaxOpenConns: 40
+            MaxIdleConns: 20
+            MaxConnLifetime: 30m
+            MaxConnIdleTime: 5m
+            User:
+              Username: zitadel
+              Password: ${SECRET_ZITADEL_CRDB_USER_PASSWORD}
+              SSL:
+                Mode: disable  
+            Admin:
+              Username: postgres
+              Password: ${SECRET_POSTGRES_PASSWORD}
+              SSL:
+                Mode: disable

@@ -5,4 +5,7 @@ resources:
 - hashicorp.yaml
 - muwujak-evergarden.yaml
 - external-dns.yaml
+- jetstack-charts.yaml
 - percona.yaml
+- prometheus-community.yaml
+- weaveworks.yaml
