@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: ./flux/cluster/apps/doc/netbox/app
+  path: ./k8s/flux/cluster/apps/doc/netbox/app
   prune: true
   sourceRef:
     kind: GitRepository

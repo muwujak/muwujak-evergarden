@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: ./flux/cluster/apps/network/cert-manager/app
+  path: ./k8s/flux/cluster/apps/network/cert-manager/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,7 +19,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: ./flux/cluster/apps/network/cert-manager/issuer
+  path: ./k8s/flux/cluster/apps/network/cert-manager/issuer
   prune: true
   sourceRef:
     kind: GitRepository

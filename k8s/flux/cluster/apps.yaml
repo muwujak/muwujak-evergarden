@@ -9,7 +9,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux/cluster/apps
+  path: ./k8s/flux/cluster/apps
   prune: true
   wait: true
   timeout: 5m0s
