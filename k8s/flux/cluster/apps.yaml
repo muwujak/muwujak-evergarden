@@ -19,6 +19,10 @@ spec:
         name: cluster-configmap-vars
       - kind: Secret
         name: cluster-secret-vars
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-pgp
   patches:
     - patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
