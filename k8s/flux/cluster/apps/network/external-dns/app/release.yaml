@@ -21,7 +21,7 @@ spec:
       - name: CF_API_KEY
         value: ${SECRET_CLOUDFLARE_API_KEY}
     sources: ["crd", "ingress"]
-    domainFilters: [${SECRET_LOCAL_DOMAIN}]
+    domainFilters: ["${SECRET_LOCAL_DOMAIN}"]
     logLevel: info
     serviceMonitor:
       enabled: true
