@@ -13,7 +13,7 @@ spec:
   decryption:            
     provider: sops       
     secretRef:           
-      name: sops-age
+      name: sops-pgp
   postBuild:
     substituteFrom:
       - kind: Secret
