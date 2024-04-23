@@ -6,6 +6,7 @@ resources:
 - muwujak-evergarden.yaml
 - external-dns.yaml
 - jetstack-charts.yaml
+- longhorn.yaml
 - percona.yaml
 - prometheus-community.yaml
 - weaveworks.yaml
