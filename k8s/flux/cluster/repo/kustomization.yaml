@@ -5,6 +5,7 @@ resources:
 - hashicorp.yaml
 - muwujak-evergarden.yaml
 - external-dns.yaml
+- ingress-nginx.yaml
 - jetstack-charts.yaml
 - longhorn.yaml
 - percona.yaml
