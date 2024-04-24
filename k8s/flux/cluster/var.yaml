@@ -12,12 +12,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-configmap-vars
-      - kind: Secret
-        name: cluster-secret-vars
   decryption:
     provider: sops
     secretRef:
@@ -33,12 +27,6 @@ spec:
             provider: sops
             secretRef:
               name: sops-pgp
-          postBuild:
-            substituteFrom:
-              - kind: ConfigMap
-                name: cluster-configmap-vars
-              - kind: Secret
-                name: cluster-secret-vars
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
