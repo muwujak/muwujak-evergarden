@@ -17,7 +17,7 @@ spec:
   values:
     extraArgs:
       - '--dns01-recursive-nameservers-only'
-      - '--dns01-recursive-nameservers=192.168.0.150:53'
+      - '--dns01-recursive-nameservers=kube-dns.kube-system.svc:53'
     installCRDs: true
     prometheus:
       enabled: true
