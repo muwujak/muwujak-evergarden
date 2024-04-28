@@ -1,0 +1,27 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: tempo
+  namespace: tempo
+spec:
+  timeout: 30m
+  interval: 6h
+  chart:
+    spec:
+      chart: tempo
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+  values:
+    resources:
+      limits:
+        memory: 750Mi
+      requests:
+        memory: 500Mi
+    serviceMonitor:
+      enabled: true
+    persistence:
+      enabled: true
