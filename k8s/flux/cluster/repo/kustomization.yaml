@@ -8,6 +8,7 @@ resources:
 - ingress-nginx.yaml
 - jetstack-charts.yaml
 - longhorn.yaml
+- mageai.yaml
 - percona.yaml
 - prometheus-community.yaml
 - weaveworks.yaml
