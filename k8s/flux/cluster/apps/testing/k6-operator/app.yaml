@@ -1,0 +1,12 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-k6-operator
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: ./k8s/flux/cluster/apps/testing/k6-operator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
