@@ -14,3 +14,6 @@ spec:
         name: grafana-charts
         namespace: flux-system
       interval: 5m
+  values:
+    namespace:
+      create: false
