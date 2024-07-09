@@ -43,6 +43,14 @@ spec:
       persistence:
         enabled: false
     tableManager:
-      retention_period: 52h
-      persistence:
-        enabled: false
+      enabled: false
+      # retention_period: 52h
+      # persistence:
+      #   enabled: false
+      # resources: {}
+      # extraVolumes:
+      #   - name: data
+      #     emptyDir: {}
+      # extraVolumeMounts:
+      #   - name: data
+      #     mountPath: /var/loki
