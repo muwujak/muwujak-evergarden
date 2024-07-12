@@ -34,6 +34,7 @@ spec:
       dataStorage:
         enabled: true
         storageClass: "longhorn"
+        size: 1Gi 
       # extraEnvironmentVars:
       #   VAULT_TOKEN: ${SECRET_VAULT_TOKEN}
       #   TZ: ${TZ}
