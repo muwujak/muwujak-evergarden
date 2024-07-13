@@ -27,10 +27,10 @@ spec:
     keepHistory: false
   values:
     loki:
-      config: |
-        ruler:
-          wal:
-            /var/loki/wal  
+      # config: |
+      #   ruler:
+      #     wal:
+      #       /var/loki/wal
       commonConfig:
         replication_factor: 2
     singleBinary:
