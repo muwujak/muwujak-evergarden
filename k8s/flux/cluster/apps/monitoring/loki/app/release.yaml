@@ -27,10 +27,6 @@ spec:
     keepHistory: false
   values:
     loki:
-      # config: |
-      #   ruler:
-      #     wal:
-      #       /var/loki/wal
       commonConfig:
         replication_factor: 2
     singleBinary:
@@ -49,18 +45,12 @@ spec:
     tableManager:
       enabled: true
       resources: {}
-      extraVolumes:
-        - name: data
-          emptyDir: {}
-      extraVolumeMounts:
-        - name: data
-          mountPath: /var/loki
     ruler:
       enabled: true
       kind: StatefulSet
       persistence:
         enabled: false
-      # retention_period: 52h
+      retention_period: 3h
       # persistence:
       #   enabled: false
       # resources: {}
