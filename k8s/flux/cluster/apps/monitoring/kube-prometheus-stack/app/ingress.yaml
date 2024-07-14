@@ -10,7 +10,6 @@ metadata:
     hajimari.io/group: "Monitoring"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: traefik
   rules:
   - host: grafana.${SECRET_LOCAL_DOMAIN}
     http:
