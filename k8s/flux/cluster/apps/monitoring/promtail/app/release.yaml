@@ -16,4 +16,4 @@ spec:
         namespace: flux-system
   values:
     config:
-      lokiAddress: http://loki-gateway.loki.svc.cluster.local/loki/api/v1/push
+      lokiAddress: http://loki.loki.svc.cluster.local:3100/loki/api/v1/push
