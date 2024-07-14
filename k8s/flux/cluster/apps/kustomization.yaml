@@ -5,7 +5,7 @@ resources:
   # - db/
   - default/
   # - infra/
-  - monitoring/
+  # - monitoring/
   - network/
   - security/
   - storage/
