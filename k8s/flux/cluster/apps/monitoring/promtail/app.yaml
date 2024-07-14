@@ -1,0 +1,12 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-promtail
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: ./k8s/flux/cluster/apps/monitoring/promtail/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

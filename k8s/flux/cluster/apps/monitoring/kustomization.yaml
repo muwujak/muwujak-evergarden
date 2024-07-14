@@ -4,5 +4,6 @@ resources:
   - kube-prometheus-stack/
   - loki/
   - loki-stack/
+  - promtail/
   # - tempo/
   - weaveworks/
