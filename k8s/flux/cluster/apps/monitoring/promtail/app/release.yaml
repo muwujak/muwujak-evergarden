@@ -35,14 +35,21 @@ spec:
         #       selector: '{label="value"}'
         #       stages:
         #       <OTHER_STAGES>
+        
+        # - job_name: podLogs/monitoring/loki
+        #   kubernetes_sd_configs:
+        #     - namespaces:
+        #         names:
+        #             - monitoring  # <--- here list
+        #       role: pod
         pipelineStages:
           - cri: {}
-          - match:
-              selector: '{namespace!~"kube-system"}'
-              action: drop
-          # - drop:
-          #     source:     "namespace"
-          #     expression: "(kube-public|kube-system)"
+          # - match:
+          #     selector: '{namespace!~"kube-system"}'
+          #     action: drop
+          - drop:
+              source:     "namespace"
+              expression: "(longhorn|longhorn-system|kube-system)"
         common:
           - action: replace
             source_labels:
