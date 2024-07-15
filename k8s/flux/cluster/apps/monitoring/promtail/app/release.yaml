@@ -19,3 +19,32 @@ spec:
       lokiAddress: http://loki.loki.svc.cluster.local:3100/loki/api/v1/push
       clients:
         - url: http://loki.loki.svc.cluster.local:3100/loki/api/v1/push
+      snippets:
+        # scrape_configs:
+        # - job_name: something
+        #   static_configs:
+        #   <CONFIG...>
+
+        #   pipeline_stages:
+        #   <OTHER_CONFIG...>
+        #   - match: # Drop logs that don't match
+        #       selector: '{label!="value"}'
+        #       action: drop
+        #       drop_counter_reason: non_essential_log
+        #   - match:
+        #       selector: '{label="value"}'
+        #       stages:
+        #       <OTHER_STAGES>
+        pipelineStages:
+          - cri: {}
+          - match:
+              selector: '{namespace!~"kube-system"}'
+              action: drop
+          # - drop:
+          #     source:     "namespace"
+          #     expression: "(kube-public|kube-system)"
+        common:
+          - action: replace
+            source_labels:
+              - __meta_kubernetes_namespace
+            target_label: namespace
