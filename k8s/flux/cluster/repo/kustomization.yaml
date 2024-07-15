@@ -11,4 +11,5 @@ resources:
 - mageai.yaml
 - percona.yaml
 - prometheus-community.yaml
+- tailscale.yaml
 - weaveworks.yaml
