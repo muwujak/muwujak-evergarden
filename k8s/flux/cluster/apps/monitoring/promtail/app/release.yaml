@@ -20,38 +20,28 @@ spec:
       clients:
         - url: http://loki.loki.svc.cluster.local:3100/loki/api/v1/push
       snippets:
-        # scrape_configs:
-        # - job_name: something
-        #   static_configs:
-        #   <CONFIG...>
-
-        #   pipeline_stages:
-        #   <OTHER_CONFIG...>
-        #   - match: # Drop logs that don't match
-        #       selector: '{label!="value"}'
-        #       action: drop
-        #       drop_counter_reason: non_essential_log
-        #   - match:
-        #       selector: '{label="value"}'
-        #       stages:
-        #       <OTHER_STAGES>
-        
-        # - job_name: podLogs/monitoring/loki
-        #   kubernetes_sd_configs:
-        #     - namespaces:
-        #         names:
-        #             - monitoring  # <--- here list
-        #       role: pod
-        pipelineStages:
-          - cri: {}
-          # - match:
-          #     selector: '{namespace!~"kube-system"}'
-          #     action: drop
-          - drop:
-              source:     "namespace"
-              expression: "(longhorn|longhorn-system|kube-system)"
         common:
           - action: replace
             source_labels:
               - __meta_kubernetes_namespace
             target_label: namespace
+        scrape_configs:
+        - job_name: filter-namespace
+          # static_configs:
+          # <CONFIG...>
+
+          pipeline_stages:
+          - match: # Drop logs that don't match
+              selector: '{__meta_kubernetes_namespace!="kube-system"}'
+              action: drop
+              drop_counter_reason: drop1
+          - match: # Drop logs that don't match
+              selector: '{namespace!="kube-system"}'
+              action: drop
+              drop_counter_reason: drop2
+          # - match:
+          #     selector: '{namespace!~"kube-system"}'
+          #     action: drop
+          # - drop:
+          #     source:     "namespace"
+          #     expression: "(longhorn|longhorn-system|kube-system)"
