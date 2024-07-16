@@ -20,28 +20,28 @@ spec:
       clients:
         - url: http://loki.loki.svc.cluster.local:3100/loki/api/v1/push
       snippets:
-        common:
-          - action: replace
-            source_labels:
-              - __meta_kubernetes_namespace
-            target_label: namespace
-        scrape_configs:
-        - job_name: filter-namespace
-          # static_configs:
-          # <CONFIG...>
+        # common:
+        # - action: replace
+        #   source_labels:
+        #     - __meta_kubernetes_namespace
+        #   target_label: namespace
+        # scrape_configs:
+        # - job_name: filter-namespace
+        #   # static_configs:
+        #   # <CONFIG...>
 
-          pipeline_stages:
-          - match: # Drop logs that don't match
-              selector: '{__meta_kubernetes_namespace!="kube-system"}'
-              action: drop
-              drop_counter_reason: drop1
-          - match: # Drop logs that don't match
-              selector: '{namespace!="kube-system"}'
-              action: drop
-              drop_counter_reason: drop2
-          # - match:
-          #     selector: '{namespace!~"kube-system"}'
-          #     action: drop
-          # - drop:
-          #     source:     "namespace"
-          #     expression: "(longhorn|longhorn-system|kube-system)"
+        #   pipeline_stages:
+        #   - match: # Drop logs that don't match
+        #       selector: '{__meta_kubernetes_namespace!="kube-system"}'
+        #       action: drop
+        #       drop_counter_reason: drop1
+        #   - match: # Drop logs that don't match
+        #       selector: '{namespace!="kube-system"}'
+        #       action: drop
+        #       drop_counter_reason: drop2
+        #   # - match:
+        #   #     selector: '{namespace!~"kube-system"}'
+        #   #     action: drop
+        #   # - drop:
+        #   #     source:     "namespace"
+        #   #     expression: "(longhorn|longhorn-system|kube-system)"
