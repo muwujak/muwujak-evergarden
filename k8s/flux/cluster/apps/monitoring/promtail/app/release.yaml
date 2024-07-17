@@ -42,6 +42,9 @@ spec:
         #   # - match:
         #   #     selector: '{namespace!~"kube-system"}'
         #   #     action: drop
-        #   # - drop:
-        #   #     source:     "namespace"
-        #   #     expression: "(longhorn|longhorn-system|kube-system)"
+          - drop:
+              source:     "namespace"
+              expression: "kube-system"
+          - drop:
+              source:     "__meta_kubernetes_namespace"
+              expression: "kube-system"
