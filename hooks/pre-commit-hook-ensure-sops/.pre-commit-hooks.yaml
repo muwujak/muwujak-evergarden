@@ -1,6 +1,6 @@
-# - id: sops-encryption
-#   language: python
-#   entry: python3 -m pre_commit_hook_ensure_sops
-#   name: Ensure secrets are encrypted with sops
-#   exclude: ^\.sops\.yaml
-#   files: .*sops.*
+- id: sops-encryption
+  language: python
+  # entry: python3 -m pre_commit_hook_ensure_sops
+  name: Ensure secrets are encrypted with sops
+  exclude: ^\.sops\.yaml
+  files: .*sops.*

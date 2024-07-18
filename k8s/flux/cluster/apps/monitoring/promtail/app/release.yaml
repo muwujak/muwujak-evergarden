@@ -20,27 +20,27 @@ spec:
       clients:
         - url: http://loki.loki.svc.cluster.local:3100/loki/api/v1/push
       snippets:
-        # common:
-        # - action: replace
-        #   source_labels:
-        #     - __meta_kubernetes_namespace
-        #   target_label: namespace
+        common:
+        - action: replace
+          source_labels:
+            - __meta_kubernetes_namespace
+          target_label: namespace
         pipeline_stages:
         - docker: {}
         - match: # Drop logs that don't match
-            selector: '{__meta_kubernetes_namespace!="kube-system"}'
+            selector: '{__meta_kubernetes_namespace="kube-system"}'
             action: drop
             drop_counter_reason: drop1
         - match: # Drop logs that don't match
-            selector: '{namespace!="kube-system"}'
+            selector: '{namespace="kube-system"}'
             action: drop
             drop_counter_reason: drop2
         - drop:
             source:     "namespace"
-            expression: "kube-system"
+            expression: "(loki|promtail|kube-system)"
         - drop:
             source:     "__meta_kubernetes_namespace"
-            expression: "kube-system"
+            expression: "(loki|promtail|kube-system)"
         # scrape_configs:
         # - job_name: filter-namespace
         #   # static_configs:

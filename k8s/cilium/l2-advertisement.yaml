@@ -1,0 +1,22 @@
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: policy1
+spec:
+  serviceSelector:
+    matchExpressions:
+      - key: "namespace"
+        operator: "NotIn"
+        values:
+        - "namespace"
+  nodeSelector:
+    matchExpressions:
+      - key: "name"
+        operator: "NotIn"
+        values:
+        - "name"
+  interfaces:
+  - ^eth[0-9]+
+  - ^ens[0-9]+
+  externalIPs: true
+  loadBalancerIPs: true

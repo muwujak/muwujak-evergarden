@@ -1,0 +1,6 @@
+--2024-05-29 20:28:57--  https://ubuntu.com/download/desktop/thank-you?version=24.04
+Resolving ubuntu.com (ubuntu.com)... 185.125.190.20, 185.125.190.29, 185.125.190.21, ...
+Connecting to ubuntu.com (ubuntu.com)|185.125.190.20|:443... connected.
+HTTP request sent, awaiting response... 400 
+2024-05-29 20:28:59 ERROR 400: (no description).
+
