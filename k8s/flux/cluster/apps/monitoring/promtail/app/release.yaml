@@ -31,7 +31,8 @@ spec:
         #     selector: '{__meta_kubernetes_namespace="kube-system"}'
         #     action: drop
         #     drop_counter_reason: drop1
-        - match:
+        - 
+          match:
             selector: "{namespace='kube-system'} |= ``"
             action: drop
             drop_counter_reason: drop2
