@@ -28,29 +28,24 @@ spec:
         # pipeline_stages:
         pipelineStages:
         - cri: {}
-        - 
-          match:
-            selector: '{__meta_kubernetes_namespace="kube-system"}'
-            action: drop
-            drop_counter_reason: drop1
-        - 
-          match:
-            selector: '{namespace="kube-system"}'
-            action: drop
-            drop_counter_reason: drop2
+        # - 
+        #   match:
+        #     selector: '{__meta_kubernetes_namespace="kube-system"}'
+        #     action: drop
+        #     drop_counter_reason: drop1
+        # - 
+        #   match:
+        #     selector: '{namespace="kube-system"}'
+        #     action: drop
+        #     drop_counter_reason: drop2
         # - drop:
         #     source:     "namespace"
         #     expression: "(loki|promtail|kube-system)"
-        # - drop:
-        #     source:     "__meta_kubernetes_namespace"
-        #     expression: "(loki|promtail|kube-system)"
+        - 
+          drop:
+            source:     "__meta_kubernetes_namespace"
+            expression: "(flux-system|loki|promtail|kube-system|longhorn-system|kube-prometheus-stack)"
         # scrape_configs:
         # - job_name: filter-namespace
         #   # static_configs:
         #   # <CONFIG...>
-
-# namespace to exclude
-# default
-# longhorn-system
-# promtail
-# kube-system
