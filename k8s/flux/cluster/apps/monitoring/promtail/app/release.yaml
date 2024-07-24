@@ -38,13 +38,13 @@ spec:
         #     selector: '{namespace="kube-system"}'
         #     action: drop
         #     drop_counter_reason: drop2
-        # - drop:
-        #     source:     "namespace"
-        #     expression: "(loki|promtail|kube-system)"
-        - 
-          drop:
-            source:     "__meta_kubernetes_namespace"
+        - drop:
+            source:     "namespace"
             expression: "(flux-system|loki|promtail|kube-system|longhorn-system|kube-prometheus-stack)"
+        # - 
+        #   drop:
+        #     source:     "__meta_kubernetes_namespace"
+        #     expression: "(flux-system|loki|promtail|kube-system|longhorn-system|kube-prometheus-stack)"
         # scrape_configs:
         # - job_name: filter-namespace
         #   # static_configs:
