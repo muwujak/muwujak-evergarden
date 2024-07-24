@@ -5,11 +5,24 @@ metadata:
   namespace: kube-prometheus-stack
 spec:
   ingressClassName: tailscale
-  defaultBackend:
-    service:
-      name: kube-prometheus-stack-grafana
-      port:
-        number: 80
-  tls:
-    - hosts:
-        - grafana.tailscale.local
+  rules:
+    - 
+      host: grafana.tailscale.homelab
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kube-prometheus-stack-grafana
+                port:
+                  number: 80
+  # defaultBackend:
+  #   service:
+  #     name: kube-prometheus-stack-grafana
+  #     port:
+  #       number: 80
+  # tls:
+  #   - hosts:
+  #       - grafana.tailscale.hx
+  
