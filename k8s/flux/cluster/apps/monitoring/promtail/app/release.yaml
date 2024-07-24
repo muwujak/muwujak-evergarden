@@ -35,7 +35,7 @@ spec:
             drop_counter_reason: drop1
         - 
           match:
-            selector: "{namespace='kube-system'}"
+            selector: '{namespace="kube-system"}'
             action: drop
             drop_counter_reason: drop2
         # - drop:
