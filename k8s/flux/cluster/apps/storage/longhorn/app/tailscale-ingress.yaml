@@ -7,7 +7,7 @@ spec:
   ingressClassName: tailscale
   rules:
     - 
-      host: longhorn.tailscale.homelab
+      host: longhorn.homelab.taildd1ad.ts.net
       http:
         paths:
           - path: /
