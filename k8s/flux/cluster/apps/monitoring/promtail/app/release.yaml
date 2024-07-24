@@ -27,20 +27,20 @@ spec:
         #   target_label: namespace
         pipeline_stages:
         - cri: {}
-        - match: # Drop logs that don't match
-            selector: '{__meta_kubernetes_namespace="kube-system"}'
-            action: drop
-            drop_counter_reason: drop1
-        - match: # Drop logs that don't match
-            selector: '{namespace="kube-system"}'
+        # - match:
+        #     selector: '{__meta_kubernetes_namespace="kube-system"}'
+        #     action: drop
+        #     drop_counter_reason: drop1
+        - match:
+            selector: "{namespace='kube-system'} |= ``"
             action: drop
             drop_counter_reason: drop2
-        - drop:
-            source:     "namespace"
-            expression: "(loki|promtail|kube-system)"
-        - drop:
-            source:     "__meta_kubernetes_namespace"
-            expression: "(loki|promtail|kube-system)"
+        # - drop:
+        #     source:     "namespace"
+        #     expression: "(loki|promtail|kube-system)"
+        # - drop:
+        #     source:     "__meta_kubernetes_namespace"
+        #     expression: "(loki|promtail|kube-system)"
         # scrape_configs:
         # - job_name: filter-namespace
         #   # static_configs:
