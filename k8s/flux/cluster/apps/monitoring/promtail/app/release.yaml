@@ -26,7 +26,7 @@ spec:
         #     - __meta_kubernetes_namespace
         #   target_label: namespace
         pipeline_stages:
-        - docker: {}
+        - cri: {}
         - match: # Drop logs that don't match
             selector: '{__meta_kubernetes_namespace="kube-system"}'
             action: drop
@@ -45,3 +45,9 @@ spec:
         # - job_name: filter-namespace
         #   # static_configs:
         #   # <CONFIG...>
+
+# namespace to exclude
+# default
+# longhorn-system
+# promtail
+# kube-system
