@@ -25,15 +25,17 @@ spec:
         #   source_labels:
         #     - __meta_kubernetes_namespace
         #   target_label: namespace
-        pipeline_stages:
+        # pipeline_stages:
+        pipelineStages:
         - cri: {}
-        # - match:
-        #     selector: '{__meta_kubernetes_namespace="kube-system"}'
-        #     action: drop
-        #     drop_counter_reason: drop1
         - 
           match:
-            selector: "{namespace='kube-system'} |= ``"
+            selector: '{__meta_kubernetes_namespace="kube-system"}'
+            action: drop
+            drop_counter_reason: drop1
+        - 
+          match:
+            selector: "{namespace='kube-system'}"
             action: drop
             drop_counter_reason: drop2
         # - drop:
