@@ -7,7 +7,7 @@ spec:
   ingressClassName: tailscale
   rules:
     - 
-      host: grafana.tailscale.homelab
+      host: grafana.homelab.taildd1ad.ts.net
       http:
         paths:
           - path: /
