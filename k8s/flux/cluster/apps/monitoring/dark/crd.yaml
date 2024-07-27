@@ -1,0 +1,1410 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app: dark
+  name: dark
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.3
+  creationTimestamp: null
+  name: alertmanagers.k8s.kevingomez.fr
+spec:
+  group: k8s.kevingomez.fr
+  names:
+    kind: AlertManager
+    listKind: AlertManagerList
+    plural: alertmanagers
+    singular: alertmanager
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.status
+      name: Status
+      type: string
+    - jsonPath: .status.message
+      name: Message
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: AlertManager is the Schema for the alertmanagers API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: AlertManagerSpec defines the desired state of AlertManager
+            properties:
+              contact_points:
+                items:
+                  properties:
+                    contacts:
+                      items:
+                        properties:
+                          discord:
+                            properties:
+                              use_discord_username:
+                                type: boolean
+                              webhook:
+                                properties:
+                                  value:
+                                    description: Only one of the following may be
+                                      specified.
+                                    type: string
+                                  valueFrom:
+                                    properties:
+                                      secretKeyRef:
+                                        description: SecretKeySelector selects a key
+                                          of a Secret.
+                                        properties:
+                                          key:
+                                            description: The key of the secret to
+                                              select from.  Must be a valid secret
+                                              key.
+                                            type: string
+                                          name:
+                                            description: 'Name of the referent. More
+                                              info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                              TODO: Add other useful fields. apiVersion,
+                                              kind, uid?'
+                                            type: string
+                                          optional:
+                                            description: Specify whether the Secret
+                                              or its key must be defined
+                                            type: boolean
+                                        required:
+                                        - key
+                                        type: object
+                                        x-kubernetes-map-type: atomic
+                                    type: object
+                                type: object
+                            type: object
+                          email:
+                            properties:
+                              message:
+                                type: string
+                              single:
+                                type: boolean
+                              to:
+                                items:
+                                  type: string
+                                type: array
+                            required:
+                            - to
+                            type: object
+                          opsgenie:
+                            properties:
+                              api_key:
+                                properties:
+                                  value:
+                                    description: Only one of the following may be
+                                      specified.
+                                    type: string
+                                  valueFrom:
+                                    properties:
+                                      secretKeyRef:
+                                        description: SecretKeySelector selects a key
+                                          of a Secret.
+                                        properties:
+                                          key:
+                                            description: The key of the secret to
+                                              select from.  Must be a valid secret
+                                              key.
+                                            type: string
+                                          name:
+                                            description: 'Name of the referent. More
+                                              info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                              TODO: Add other useful fields. apiVersion,
+                                              kind, uid?'
+                                            type: string
+                                          optional:
+                                            description: Specify whether the Secret
+                                              or its key must be defined
+                                            type: boolean
+                                        required:
+                                        - key
+                                        type: object
+                                        x-kubernetes-map-type: atomic
+                                    type: object
+                                type: object
+                              api_url:
+                                type: string
+                              auto_close:
+                                type: boolean
+                              override_priority:
+                                type: boolean
+                            type: object
+                          slack:
+                            properties:
+                              body:
+                                type: string
+                              title:
+                                type: string
+                              webhook:
+                                properties:
+                                  value:
+                                    description: Only one of the following may be
+                                      specified.
+                                    type: string
+                                  valueFrom:
+                                    properties:
+                                      secretKeyRef:
+                                        description: SecretKeySelector selects a key
+                                          of a Secret.
+                                        properties:
+                                          key:
+                                            description: The key of the secret to
+                                              select from.  Must be a valid secret
+                                              key.
+                                            type: string
+                                          name:
+                                            description: 'Name of the referent. More
+                                              info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                              TODO: Add other useful fields. apiVersion,
+                                              kind, uid?'
+                                            type: string
+                                          optional:
+                                            description: Specify whether the Secret
+                                              or its key must be defined
+                                            type: boolean
+                                        required:
+                                        - key
+                                        type: object
+                                        x-kubernetes-map-type: atomic
+                                    type: object
+                                type: object
+                            type: object
+                        type: object
+                      type: array
+                    name:
+                      type: string
+                  required:
+                  - contacts
+                  - name
+                  type: object
+                type: array
+              default_contact_point:
+                type: string
+              default_group_by:
+                description: DefaultGroupBy is the default list of labels to group
+                  alerts by.
+                items:
+                  type: string
+                type: array
+              message_templates:
+                additionalProperties:
+                  type: string
+                type: object
+              routing:
+                items:
+                  properties:
+                    if_labels:
+                      items:
+                        properties:
+                          eq:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          matches:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          neq:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          not_matches:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                      type: array
+                    to:
+                      type: string
+                  required:
+                  - to
+                  type: object
+                type: array
+            type: object
+          status:
+            description: AlertManagerStatus defines the observed state of AlertManager
+            properties:
+              message:
+                type: string
+              status:
+                type: string
+            required:
+            - message
+            - status
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.3
+  creationTimestamp: null
+  name: apikeys.k8s.kevingomez.fr
+spec:
+  group: k8s.kevingomez.fr
+  names:
+    kind: APIKey
+    listKind: APIKeyList
+    plural: apikeys
+    shortNames:
+    - api-keys
+    - apikeys
+    - api-key
+    - apikey
+    - grafana-api-keys
+    singular: apikey
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.status
+      name: Status
+      type: string
+    - jsonPath: .status.message
+      name: Message
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: APIKey is the Schema for the apikeys API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: APIKeySpec defines the desired state of APIKey
+            properties:
+              role:
+                enum:
+                - admin
+                - editor
+                - viewer
+                type: string
+            required:
+            - role
+            type: object
+          status:
+            description: APIKeyStatus defines the observed state of APIKey
+            properties:
+              message:
+                type: string
+              status:
+                type: string
+            required:
+            - message
+            - status
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.3
+  creationTimestamp: null
+  name: datasources.k8s.kevingomez.fr
+spec:
+  group: k8s.kevingomez.fr
+  names:
+    kind: Datasource
+    listKind: DatasourceList
+    plural: datasources
+    shortNames:
+    - datasources
+    - datasource
+    - grafana-datasources
+    singular: datasource
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.status
+      name: Status
+      type: string
+    - jsonPath: .status.message
+      name: Message
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Datasource is the Schema for the datasources API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              cloudwatch:
+                properties:
+                  assume_role_arn:
+                    description: 'AssumeRoleARN specifies the ARN of a role to assume.
+                      Format: arn:aws:iam:*'
+                    type: string
+                  auth:
+                    properties:
+                      keys:
+                        properties:
+                          access:
+                            type: string
+                          secret:
+                            properties:
+                              value:
+                                description: Only one of the following may be specified.
+                                type: string
+                              valueFrom:
+                                properties:
+                                  secretKeyRef:
+                                    description: SecretKeySelector selects a key of
+                                      a Secret.
+                                    properties:
+                                      key:
+                                        description: The key of the secret to select
+                                          from.  Must be a valid secret key.
+                                        type: string
+                                      name:
+                                        description: 'Name of the referent. More info:
+                                          https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                          TODO: Add other useful fields. apiVersion,
+                                          kind, uid?'
+                                        type: string
+                                      optional:
+                                        description: Specify whether the Secret or
+                                          its key must be defined
+                                        type: boolean
+                                    required:
+                                    - key
+                                    type: object
+                                    x-kubernetes-map-type: atomic
+                                type: object
+                            type: object
+                        required:
+                        - access
+                        - secret
+                        type: object
+                    type: object
+                  custom_metrics_namespaces:
+                    description: CustomMetricsNamespaces specifies a list of namespaces
+                      for custom metrics.
+                    items:
+                      type: string
+                    type: array
+                  default:
+                    type: boolean
+                  default_region:
+                    description: DefaultRegion sets the default region to use.
+                    type: string
+                  endpoint:
+                    description: Endpoint specifies a custom endpoint for the CloudWatch
+                      service.
+                    type: string
+                  external_id:
+                    description: ExternalID specifies the external identifier of a
+                      role to assume in another account.
+                    type: string
+                type: object
+              jaeger:
+                properties:
+                  basic_auth:
+                    properties:
+                      password:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                      username:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                    required:
+                    - password
+                    - username
+                    type: object
+                  ca_certificate:
+                    properties:
+                      value:
+                        description: Only one of the following may be specified.
+                        type: string
+                      valueFrom:
+                        properties:
+                          secretKeyRef:
+                            description: SecretKeySelector selects a key of a Secret.
+                            properties:
+                              key:
+                                description: The key of the secret to select from.  Must
+                                  be a valid secret key.
+                                type: string
+                              name:
+                                description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                  TODO: Add other useful fields. apiVersion, kind,
+                                  uid?'
+                                type: string
+                              optional:
+                                description: Specify whether the Secret or its key
+                                  must be defined
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                            x-kubernetes-map-type: atomic
+                        type: object
+                    type: object
+                  default:
+                    type: boolean
+                  forward_cookies:
+                    items:
+                      type: string
+                    type: array
+                  forward_credentials:
+                    type: boolean
+                  forward_oauth:
+                    type: boolean
+                  node_graph:
+                    type: boolean
+                  skip_tls_verify:
+                    type: boolean
+                  timeout:
+                    type: string
+                  trace_to_logs:
+                    properties:
+                      datasource:
+                        properties:
+                          name:
+                            type: string
+                          uid:
+                            description: Only one of the following may be specified.
+                            type: string
+                        type: object
+                      filter_by_span:
+                        type: boolean
+                      filter_by_trace:
+                        type: boolean
+                      span_end_shift:
+                        type: string
+                      span_start_shift:
+                        type: string
+                      tags:
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - datasource
+                    type: object
+                  url:
+                    type: string
+                required:
+                - url
+                type: object
+              loki:
+                properties:
+                  basic_auth:
+                    properties:
+                      password:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                      username:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                    required:
+                    - password
+                    - username
+                    type: object
+                  ca_certificate:
+                    properties:
+                      value:
+                        description: Only one of the following may be specified.
+                        type: string
+                      valueFrom:
+                        properties:
+                          secretKeyRef:
+                            description: SecretKeySelector selects a key of a Secret.
+                            properties:
+                              key:
+                                description: The key of the secret to select from.  Must
+                                  be a valid secret key.
+                                type: string
+                              name:
+                                description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                  TODO: Add other useful fields. apiVersion, kind,
+                                  uid?'
+                                type: string
+                              optional:
+                                description: Specify whether the Secret or its key
+                                  must be defined
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                            x-kubernetes-map-type: atomic
+                        type: object
+                    type: object
+                  default:
+                    type: boolean
+                  derived_fields:
+                    items:
+                      properties:
+                        datasource:
+                          description: For internal links Optional.
+                          properties:
+                            name:
+                              type: string
+                            uid:
+                              description: Only one of the following may be specified.
+                              type: string
+                          type: object
+                        name:
+                          type: string
+                        regex:
+                          description: Used to parse and capture some part of the
+                            log message. You can use the captured groups in the template.
+                          type: string
+                        url:
+                          type: string
+                        url_label:
+                          description: Used to override the button label when this
+                            derived field is found in a log. Optional.
+                          type: string
+                      required:
+                      - name
+                      - regex
+                      - url
+                      type: object
+                    type: array
+                  forward_cookies:
+                    items:
+                      type: string
+                    type: array
+                  forward_credentials:
+                    type: boolean
+                  forward_oauth:
+                    type: boolean
+                  maximum_lines:
+                    type: integer
+                  skip_tls_verify:
+                    type: boolean
+                  timeout:
+                    type: string
+                  url:
+                    type: string
+                required:
+                - url
+                type: object
+              prometheus:
+                properties:
+                  access_mode:
+                    enum:
+                    - proxy
+                    - direct
+                    type: string
+                  basic_auth:
+                    properties:
+                      password:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                      username:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                    required:
+                    - password
+                    - username
+                    type: object
+                  ca_certificate:
+                    properties:
+                      value:
+                        description: Only one of the following may be specified.
+                        type: string
+                      valueFrom:
+                        properties:
+                          secretKeyRef:
+                            description: SecretKeySelector selects a key of a Secret.
+                            properties:
+                              key:
+                                description: The key of the secret to select from.  Must
+                                  be a valid secret key.
+                                type: string
+                              name:
+                                description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                  TODO: Add other useful fields. apiVersion, kind,
+                                  uid?'
+                                type: string
+                              optional:
+                                description: Specify whether the Secret or its key
+                                  must be defined
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                            x-kubernetes-map-type: atomic
+                        type: object
+                    type: object
+                  default:
+                    type: boolean
+                  exemplars:
+                    items:
+                      properties:
+                        datasource:
+                          description: The data source the exemplar is going to navigate
+                            to. Set this value for internal exemplar links.
+                          properties:
+                            name:
+                              type: string
+                            uid:
+                              description: Only one of the following may be specified.
+                              type: string
+                          type: object
+                        label_name:
+                          type: string
+                        url:
+                          description: The URL of the trace backend the user would
+                            go to see its trace. Set this value for external exemplar
+                            links.
+                          type: string
+                      required:
+                      - label_name
+                      type: object
+                    type: array
+                  forward_cookies:
+                    items:
+                      type: string
+                    type: array
+                  forward_credentials:
+                    type: boolean
+                  forward_oauth:
+                    type: boolean
+                  http_method:
+                    enum:
+                    - POST
+                    - GET
+                    type: string
+                  query_timeout:
+                    type: string
+                  scrape_interval:
+                    type: string
+                  skip_tls_verify:
+                    type: boolean
+                  url:
+                    type: string
+                required:
+                - url
+                type: object
+              stackdriver:
+                properties:
+                  default:
+                    type: boolean
+                  jwt_authentication:
+                    properties:
+                      value:
+                        description: Only one of the following may be specified.
+                        type: string
+                      valueFrom:
+                        properties:
+                          secretKeyRef:
+                            description: SecretKeySelector selects a key of a Secret.
+                            properties:
+                              key:
+                                description: The key of the secret to select from.  Must
+                                  be a valid secret key.
+                                type: string
+                              name:
+                                description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                  TODO: Add other useful fields. apiVersion, kind,
+                                  uid?'
+                                type: string
+                              optional:
+                                description: Specify whether the Secret or its key
+                                  must be defined
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                            x-kubernetes-map-type: atomic
+                        type: object
+                    type: object
+                type: object
+              tempo:
+                properties:
+                  basic_auth:
+                    properties:
+                      password:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                      username:
+                        properties:
+                          value:
+                            description: Only one of the following may be specified.
+                            type: string
+                          valueFrom:
+                            properties:
+                              secretKeyRef:
+                                description: SecretKeySelector selects a key of a
+                                  Secret.
+                                properties:
+                                  key:
+                                    description: The key of the secret to select from.  Must
+                                      be a valid secret key.
+                                    type: string
+                                  name:
+                                    description: 'Name of the referent. More info:
+                                      https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      TODO: Add other useful fields. apiVersion, kind,
+                                      uid?'
+                                    type: string
+                                  optional:
+                                    description: Specify whether the Secret or its
+                                      key must be defined
+                                    type: boolean
+                                required:
+                                - key
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                    required:
+                    - password
+                    - username
+                    type: object
+                  ca_certificate:
+                    properties:
+                      value:
+                        description: Only one of the following may be specified.
+                        type: string
+                      valueFrom:
+                        properties:
+                          secretKeyRef:
+                            description: SecretKeySelector selects a key of a Secret.
+                            properties:
+                              key:
+                                description: The key of the secret to select from.  Must
+                                  be a valid secret key.
+                                type: string
+                              name:
+                                description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                  TODO: Add other useful fields. apiVersion, kind,
+                                  uid?'
+                                type: string
+                              optional:
+                                description: Specify whether the Secret or its key
+                                  must be defined
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                            x-kubernetes-map-type: atomic
+                        type: object
+                    type: object
+                  default:
+                    type: boolean
+                  forward_cookies:
+                    items:
+                      type: string
+                    type: array
+                  forward_credentials:
+                    type: boolean
+                  forward_oauth:
+                    type: boolean
+                  node_graph:
+                    type: boolean
+                  skip_tls_verify:
+                    type: boolean
+                  timeout:
+                    type: string
+                  trace_to_logs:
+                    properties:
+                      datasource:
+                        properties:
+                          name:
+                            type: string
+                          uid:
+                            description: Only one of the following may be specified.
+                            type: string
+                        type: object
+                      filter_by_span:
+                        type: boolean
+                      filter_by_trace:
+                        type: boolean
+                      span_end_shift:
+                        type: string
+                      span_start_shift:
+                        type: string
+                      tags:
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - datasource
+                    type: object
+                  url:
+                    type: string
+                required:
+                - url
+                type: object
+            type: object
+          status:
+            description: DatasourceStatus defines the observed state of Datasource
+            properties:
+              message:
+                type: string
+              status:
+                type: string
+            required:
+            - message
+            - status
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.3
+  creationTimestamp: null
+  name: grafanadashboards.k8s.kevingomez.fr
+spec:
+  group: k8s.kevingomez.fr
+  names:
+    kind: GrafanaDashboard
+    listKind: GrafanaDashboardList
+    plural: grafanadashboards
+    shortNames:
+    - dashboards
+    - dashboard
+    - gd
+    - grafana-dashboards
+    singular: grafanadashboard
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.status
+      name: Status
+      type: string
+    - jsonPath: .status.message
+      name: Message
+      type: string
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: GrafanaDashboard is the Schema for the grafanadashboards API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          folder:
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            type: object
+            x-kubernetes-preserve-unknown-fields: true
+          status:
+            description: GrafanaDashboardStatus defines the observed state of a GrafanaDashboard
+            properties:
+              message:
+                type: string
+              status:
+                type: string
+            required:
+            - message
+            - status
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dark-operator
+  namespace: dark
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: grafanadashboard-editor-role
+rules:
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - grafanadashboards
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - grafanadashboards/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: grafanadashboard-viewer-role
+rules:
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - grafanadashboards
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - grafanadashboards/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - alertmanagers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - alertmanagers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - alertmanagers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - apikeys
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - apikeys/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - apikeys/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - datasources
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - datasources/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - datasources/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - grafanadashboards
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - grafanadashboards/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - k8s.kevingomez.fr
+  resources:
+  - grafanadashboards/status
+  verbs:
+  - get
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dark-operator-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: manager-role
+subjects:
+- kind: ServiceAccount
+  name: dark-operator
+  namespace: dark
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dark
+  namespace: dark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dark
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        app: dark
+    spec:
+      containers:
+      - args:
+        - --zap-devel=false
+        command:
+        - /operator
+        env:
+        - name: GRAFANA_HOST
+          value: http://grafana.monitoring.svc.cluster.local
+        - name: GRAFANA_TOKEN
+          value: this should really be in a secret
+        image: kphoen/dark:latest
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        name: dark
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 50m
+            memory: 80Mi
+          requests:
+            cpu: 5m
+            memory: 30Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+      securityContext:
+        runAsNonRoot: true
+      serviceAccountName: dark-operator
+      terminationGracePeriodSeconds: 10
