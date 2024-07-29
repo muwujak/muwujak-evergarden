@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: infisical-tailscale-ingress
+spec:
+  ingressClassName: tailscale
+  rules:
+    - 
+      host: &host infisical-homelab.taildd1ad.ts.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: &svc infisical-infisical-standalone-infisical
+                port:
+                  number: &port 8080
+  defaultBackend:
+    service:
+      name: *svc
+      port:
+        number: *port
+  tls:
+    - hosts:
+        - *host
+  
