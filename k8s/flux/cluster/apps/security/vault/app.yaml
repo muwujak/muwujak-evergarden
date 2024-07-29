@@ -1,3 +1,4 @@
+---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -6,6 +7,19 @@ metadata:
 spec:
   interval: 1h
   path: ./k8s/flux/cluster/apps/security/vault/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-vault-secrets-operator
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: ./k8s/flux/cluster/apps/security/vault/vault-secrets-operator
   prune: true
   sourceRef:
     kind: GitRepository
