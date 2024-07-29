@@ -7,7 +7,7 @@ spec:
   ingressClassName: tailscale
   rules:
     - 
-      host: grafana.homelab.taildd1ad.ts.net
+      host: grafana-homelab.taildd1ad.ts.net
       http:
         paths:
           - path: /
@@ -17,12 +17,12 @@ spec:
                 name: kube-prometheus-stack-grafana
                 port:
                   number: 80
-  # defaultBackend:
-  #   service:
-  #     name: kube-prometheus-stack-grafana
-  #     port:
-  #       number: 80
-  # tls:
-  #   - hosts:
-  #       - grafana.tailscale.hx
+  defaultBackend:
+    service:
+      name: kube-prometheus-stack-grafana
+      port:
+        number: 80
+  tls:
+    - hosts:
+        - grafana-homelab.taildd1ad.ts.net
   
