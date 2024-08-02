@@ -7,3 +7,10 @@ services:
     ports:
       - "3030:80"
     restart: on-failure
+  openvscode-server:
+    container_name: openvscode-server
+    image: gitpod/openvscode-server
+    ports:
+      - "8001:3000"
+    volumes:
+      - .:/home/workspace:cached
