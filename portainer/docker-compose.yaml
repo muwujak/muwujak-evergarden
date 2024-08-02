@@ -13,4 +13,6 @@ services:
     ports:
       - "8001:3000"
     volumes:
-      - .:/home/workspace:cached
+      - openvscode-server-volume:/home/workspace:cached
+volumes:
+  openvscode-server-volume:
