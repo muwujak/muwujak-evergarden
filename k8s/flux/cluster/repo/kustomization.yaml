@@ -3,13 +3,14 @@ kind: Kustomization
 resources:
 - grafana.yaml
 - hashicorp.yaml
-- muwujak-evergarden.yaml
 - external-dns.yaml
 - infisical.yaml
 - ingress-nginx.yaml
 - jetstack-charts.yaml
 - longhorn.yaml
 - mageai.yaml
+- muwujak-evergarden.yaml
+- nfs-subdir-external-provisioner.yaml
 - percona.yaml
 - prometheus-community.yaml
 - tailscale.yaml
