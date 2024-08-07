@@ -3,6 +3,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: nfs-subdir-external-provisioner
+  labels:
+    kustomize.toolkit.fluxcd.io/substitute: "disabled"
 spec:
   interval: 5m
   chart:
@@ -27,7 +29,7 @@ spec:
     replicaCount: 2
     nfs:
       server: "192.168.227.201"
-      path: ${SECRET_NFS_SUBDIR_EXTERNAL_PROVISION_PATH}
+      path: "/mnt/hakari-pool-1/kubernetes-nfs-provisioner/"
     storageClass:
       defaultClass: false
       name: nfs-provision
