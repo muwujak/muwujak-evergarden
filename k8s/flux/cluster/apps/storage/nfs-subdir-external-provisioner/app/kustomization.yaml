@@ -11,5 +11,5 @@ transformers:
     kind: NamespaceTransformer
     metadata:
       name: namespaceTransformer
-      namespace: cluster-nfs-subdir-external-provisioner
+      namespace: nfs-subdir-external-provisioner
     unsetOnly: true
