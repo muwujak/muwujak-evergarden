@@ -30,7 +30,7 @@ spec:
     replicaCount: 2
     nfs:
       server: "192.168.227.201"
-      path: ""
+      path: ${SECRET_NFS_SUBDIR_EXTERNAL_PROVISION_PATH}
     storageClass:
       defaultClass: false
       name: nfs-provision
