@@ -1,19 +1,31 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: busybox
+  name: busybox-deployment
   namespace: default
 spec:
-  containers:
-  - image: weibeld/ubuntu-networking
-    command:
-      - tail
-      - -f 
-      - /dev/null
-    imagePullPolicy: IfNotPresent
-    name: debian
-  restartPolicy: Always
-  volumes:
-    - name: config
-      persistentVolumeClaim:
-        claimName: busybox-nfs-volume
+  replicas: 3
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      containers:
+      - image: weibeld/ubuntu-networking
+        command:
+          - tail
+          - -f 
+          - /dev/null
+        imagePullPolicy: IfNotPresent
+        name: debian
+        volumeMounts:
+        - name: config
+          mountPath: /mnt/config  # Adjust mountPath as necessary
+      restartPolicy: Always
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: busybox-nfs-volume
