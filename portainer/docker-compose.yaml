@@ -16,13 +16,6 @@ services:
             - "8001:3000"
         volumes:
             - openvscode-server-volume:/home/workspace:cached
-    openvscode-server:
-        container_name: openvscode-server
-        image: gitpod/openvscode-server
-        ports:
-            - "8002:3000"
-        volumes:
-            - openvscode-server-volume:/home/workspace:cached
 
     # highlight.io
     
