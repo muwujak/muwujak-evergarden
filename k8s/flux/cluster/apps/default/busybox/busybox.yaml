@@ -13,3 +13,7 @@ spec:
     imagePullPolicy: IfNotPresent
     name: debian
   restartPolicy: Always
+  volumes:
+    - name: config
+      persistentVolumeClaim:
+        claimName: busybox-nfs-volume
