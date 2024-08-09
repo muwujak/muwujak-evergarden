@@ -43,7 +43,7 @@ services:
         depends_on:
             - zookeeper
         environment:
-            KAFKA_ADVERTISED_LISTENERS: ${KAFKA_ADVERTISED_LISTENERS}
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT://localhost:9092
             KAFKA_BROKER_ID: 1
             KAFKA_CONSUMER_MAX_PARTITION_FETCH_BYTES: 268435456
             KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
