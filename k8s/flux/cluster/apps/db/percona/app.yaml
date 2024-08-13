@@ -1,11 +1,25 @@
+---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-percona
+  name: cluster-percona-pxc-db
   namespace: flux-system
 spec:
   interval: 1h
-  path: ./k8s/flux/cluster/apps/db/percona/app
+  path: ./k8s/flux/cluster/apps/db/percona/pxc-db
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-percona-pxc-operator
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: ./k8s/flux/cluster/apps/db/percona/pxc-operator
   prune: true
   sourceRef:
     kind: GitRepository
