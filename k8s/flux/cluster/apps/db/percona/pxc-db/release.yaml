@@ -189,7 +189,7 @@ spec:
 
     haproxy:
       enabled: true
-      size: 3
+      size: 2
       image: ""
       # imagePullPolicy: Always
       imagePullSecrets: []
