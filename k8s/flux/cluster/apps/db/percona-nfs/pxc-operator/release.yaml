@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: percona-pxc-operator
-  namespace: percona-helm-2
+  namespace: percona-nfs-helm-1
 spec:
   interval: 75m
   chart:
