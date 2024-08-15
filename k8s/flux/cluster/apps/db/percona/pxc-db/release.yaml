@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://helm.releases.hashicorp.com
       chart: pxc-db
-      version: 1.14.2
+      version: 1.14.3
       sourceRef:
         kind: HelmRepository
         name: percona
@@ -106,8 +106,8 @@ spec:
       # envVarsSecret: my-env-var-secrets
       resources:
         requests:
-          memory: 1G
-          cpu: 600m
+          memory: 100M
+          cpu: 100m
         limits: {}
           # memory: 1G
           # cpu: 600m
@@ -151,9 +151,9 @@ spec:
         ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
         ##   GKE, AWS & OpenStack)
         ##
-        # storageClass: "-"
+        storageClass: longhorn"
         accessMode: ReadWriteOnce
-        size: 8Gi
+        size: 10Gi
 
       # If you set this to true the cluster will be created without TLS
       disableTLS: false
@@ -410,8 +410,8 @@ spec:
       # envVarsSecret: my-env-var-secrets
       resources:
         requests:
-          memory: 1G
-          cpu: 600m
+          memory: 100M
+          cpu: 100m
         limits: {}
           # memory: 1G
           # cpu: 600m
@@ -483,7 +483,7 @@ spec:
       resources:
         requests:
           memory: 100M
-          cpu: 200m
+          cpu: 100m
         limits: {}
 
     pmm:
