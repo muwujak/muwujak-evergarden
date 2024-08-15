@@ -151,7 +151,7 @@ spec:
         ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
         ##   GKE, AWS & OpenStack)
         ##
-        storageClass: longhorn"
+        storageClass: "longhorn"
         accessMode: ReadWriteOnce
         size: 10Gi
 
