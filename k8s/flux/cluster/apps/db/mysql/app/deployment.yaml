@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: mysql:latest
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: test12345
+        - name: MYSQL_DATABASE
+          value: terrex
+        - name: MYSQL_USER
+          value: muwujak
+        - name: MYSQL_PASSWORD
+          value: test12345
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-pvc
+          mountPath: /var/lib/mysql
+        - name: mysql-config-pvc
+          mountPath: /etc/mysql/conf.d/
+      volumes:
+      - name: mysql-pvc
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+      - name: mysql-config-pvc
+        persistentVolumeClaim:
+          claimName: mysql-config-pvc
