@@ -11,17 +11,17 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   rules:
-  - host: grafana.${SECRET_LOCAL_DOMAIN}
+  - host: grafana-ingress.mujak.id
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: kube-prometheus-stack-grafana
+            name: grafana-ingress.mujak.id
             port:
               number: 80
   tls:
   - hosts: 
-    - grafana.${SECRET_LOCAL_DOMAIN}
+    - grafana-ingress.mujak.id
     secretName: grafana-ingress-certs
