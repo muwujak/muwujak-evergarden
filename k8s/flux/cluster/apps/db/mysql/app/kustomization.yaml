@@ -6,3 +6,12 @@ resources:
   - service.yaml
   - pvc-config.yaml
   - tailscale-ingress.yaml
+
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: namespaceTransformer
+      namespace: mysql
+    unsetOnly: true
