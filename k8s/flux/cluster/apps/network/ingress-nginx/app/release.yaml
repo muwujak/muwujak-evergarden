@@ -31,7 +31,7 @@ spec:
         proxy-buffer-size: 16k
       use-forwarded-headers: "true"
       service:
-        loadBalancerIP: 192.168.227.131
+        loadBalancerIP: 192.168.227.99
         externalTrafficPolicy: Local
       ingressClassResource:
         default: true
