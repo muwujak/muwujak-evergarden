@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mysql-ingress
+  namespace: mysql
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: mysql-ingress.mujak.id
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: mysql-service
+            name: 
+            port:
+              number: 3306
+  tls:
+  - hosts: 
+    - mysql-ingress.mujak.id
+    secretName: mysql-ingress-certs
