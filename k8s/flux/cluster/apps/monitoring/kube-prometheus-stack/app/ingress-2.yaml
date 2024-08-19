@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-2-ingress
+  namespace: kube-prometheus-stack
+  annotations:
+    hajimari.io/icon: simple-icons:grafana
+    hajimari.io/enable: true
+    hajimari.io/appName: "Grafana"
+    hajimari.io/group: "Monitoring"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: grafana.mujak.id
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kube-prometheus-stack-grafana
+            port:
+              number: 80
+  tls:
+  - hosts: 
+    - grafana.mujak.id
+    secretName: grafana-2-ingress-certs
