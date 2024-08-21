@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
 spec:
-  storageClassName: longhorn
+  storageClass: "nfs-provision"
   accessModes:
     - ReadWriteOnce
   resources:
