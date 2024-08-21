@@ -6,3 +6,4 @@ resources:
   - mysql-2/
   - percona/
   - percona-nfs/
+  - postgres/
