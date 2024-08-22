@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - longhorn-nfs-installation.yaml
   - release.yaml
+  - release-general.yaml
 
 transformers:
   - |-
