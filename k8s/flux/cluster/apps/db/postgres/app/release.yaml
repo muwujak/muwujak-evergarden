@@ -1,0 +1,57 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: postgresql
+      version: 15.2.5
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  # dependsOn:
+  #   - name: longhorn
+  #     namespace: longhorn-system
+  values:
+    image:
+      repository: bitnami/postgresql
+      tag: 15.6.0
+    auth:
+      enablePostgresUser: true
+      postgresPassword: postgres
+      database: postgres
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: postgresql-data
+      resources: 
+        requests:
+          cpu: 100m
+          memory: 100Mi
+        limits:
+          cpu: 4
+          memory: 1024Mi
+    
+  ## resources:
+  ##   requests:
+  ##     cpu: 2
+  ##     memory: 512Mi
+  ##   limits:
+  ##     cpu: 3
+  ##     memory: 1024Mi
+  ##
