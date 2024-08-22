@@ -12,6 +12,9 @@ spec:
     storageClass: longhorn
   enableSuperuserAccess: true
   postgresql:
+    pg_hba:
+      - host all all 0.0.0.0/0 md5
+      - host all all ::/0 md5
     parameters:
       max_connections: "600"
       max_slot_wal_keep_size: 10GB
