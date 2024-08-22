@@ -4,6 +4,7 @@ resources:
   - configmap.yaml
   - deployment.yaml
   - pvc.yaml
+  - pvc-helm.yaml
   - release.yaml
   - service.yaml
 
