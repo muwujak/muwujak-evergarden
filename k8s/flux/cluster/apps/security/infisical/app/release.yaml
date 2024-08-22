@@ -19,5 +19,5 @@ spec:
     infisical:
       image:
         repository: infisical/infisical
-        tag: "v0.46.2-postgres" #<-- update
+        tag: "v0.80.0-postgres"
         pullPolicy: IfNotPresent
