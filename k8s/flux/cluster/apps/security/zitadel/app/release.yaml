@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: zitadel
-  namespace: security
+  namespace: zitadel
 spec:
   interval: 1h
   chart:
@@ -28,7 +28,7 @@ spec:
         ExternalPort: 443
         Database:
           postgres:
-            Host: pg-16-cluster-rw.infrastructure.svc.cluster.local
+            Host: pg-16-cluster-rw.cnpg.svc.cluster.local
             Port: 5432
             Database: zitadel
             MaxOpenConns: 40
@@ -39,9 +39,9 @@ spec:
               Username: zitadel
               Password: ${SECRET_ZITADEL_CRDB_USER_PASSWORD}
               SSL:
-                Mode: disable  
+                Mode: disable
             Admin:
               Username: postgres
-              Password: ${SECRET_POSTGRES_PASSWORD}
+              Password: ${SECRET_ZITADEL_POSTGRES_PASSWORD}
               SSL:
                 Mode: disable

@@ -4,13 +4,9 @@ metadata:
   name: zitadel-ingress
   namespace: security
   annotations:
-    hajimari.io/icon: cib:open-id
-    hajimari.io/enable: true
-    hajimari.io/appName: "Zitadel"
-    hajimari.io/group: "Security"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: traefik
+  ingressClassName: nginx
   rules:
   - host: "sso.${SECRET_LOCAL_DOMAIN}"
     http:
