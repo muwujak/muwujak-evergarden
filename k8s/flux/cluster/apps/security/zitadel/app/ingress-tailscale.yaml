@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: grafana-tailscale-ingress
-  namespace: kube-prometheus-stack
+  name: zitadel-tailscale-ingress
+  namespace: zitadel
 spec:
   ingressClassName: tailscale
   rules:
@@ -14,12 +14,12 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: kube-prometheus-stack-grafana
+                name: zitadel
                 port:
                   number: 80
   defaultBackend:
     service:
-      name: kube-prometheus-stack-grafana
+      name: zitadel
       port:
         number: 80
   tls:
