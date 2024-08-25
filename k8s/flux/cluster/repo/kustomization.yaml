@@ -14,6 +14,7 @@ resources:
 - muwujak-evergarden.yaml
 - nfs-subdir-external-provisioner.yaml
 - percona.yaml
+- pmint.yaml
 - prometheus-community.yaml
 - tailscale.yaml
 - weaveworks.yaml
