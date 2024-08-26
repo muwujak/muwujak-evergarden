@@ -18,9 +18,13 @@ spec:
       - 
         resources:
           limits:
+            cpu: "1"
+            memory: "2Gi"
             hugepages-2Mi: "512Mi"
             hugepages-1Gi: "1Gi"
           requests:
+            cpu: "100m"
+            memory: "512Mi"
             hugepages-2Mi: "512Mi"
             hugepages-1Gi: "1Gi"
         image: mysql:latest
