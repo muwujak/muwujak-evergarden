@@ -15,7 +15,15 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql:latest
+      - 
+        resources:
+          limits:
+            hugepages-2Mi: "512Mi"
+            hugepages-1Gi: "1Gi"
+          requests:
+            hugepages-2Mi: "512Mi"
+            hugepages-1Gi: "1Gi"
+        image: mysql:latest
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
