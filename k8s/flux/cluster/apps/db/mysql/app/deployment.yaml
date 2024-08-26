@@ -46,6 +46,10 @@ spec:
           mountPath: /var/lib/mysql
         - name: mysql-config-pvc
           mountPath: /etc/mysql/conf.d/
+        - mountPath: /hugepages-2Mi
+          name: hugepage-2mi
+        - mountPath: /hugepages-1Gi
+          name: hugepage-1gi
       volumes:
       - name: mysql-pvc
         persistentVolumeClaim:
@@ -53,3 +57,9 @@ spec:
       - name: mysql-config-pvc
         persistentVolumeClaim:
           claimName: mysql-config-pvc
+      - name: hugepage-2mi
+        emptyDir:
+          medium: HugePages-2Mi
+      - name: hugepage-1gi
+        emptyDir:
+          medium: HugePages-1Gi
