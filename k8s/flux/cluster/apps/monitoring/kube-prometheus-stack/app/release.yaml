@@ -19,7 +19,7 @@ spec:
       persistence:
         type: pvc
         enabled: true
-        storageClassName: :Longhorn
+        storageClassName: "longhorn"
         accessModes: ["ReadWriteOnce"]
         size: 500Mi
 
