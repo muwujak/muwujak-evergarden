@@ -1,0 +1,24 @@
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: test
+  namespace: infisical
+spec:
+  hostAPI: http://infisical-standalone-infisical.infisical.svc.cluster.local:8080/api
+  authentication:
+    kubernetesAuth:
+      identityId: 82039b76-3396-437b-ad88-e9bbbca3da32
+      serviceAccountRef:
+        name: infisical-auth
+        namespace: infisical
+
+      secretsScope:
+        projectSlug: test-qdx-i
+        envSlug: dev
+        secretsPath: "/"
+        recursive: true
+
+  managedSecretReference:
+    secretName: test-secret
+    secretNamespace: networking
+    creationPolicy: "Orphan"
