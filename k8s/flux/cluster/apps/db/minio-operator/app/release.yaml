@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: minio-operator
+  namespace: minio
+spec:
+  interval: 75m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.releases.hashicorp.com
+      chart: operator
+      version: 5.0.13
+      sourceRef:
+        kind: HelmRepository
+        name: minio-operator
+        namespace: flux-system
+  values:
+    operator:
+      env:
+        - name: OPERATOR_STS_ENABLED
+          value: "on"
+      serviceAccountAnnotations: []
+      image:
+        repository: quay.io/minio/operator
+        tag: v5.0.13
+        pullPolicy: IfNotPresent
+      replicaCount: 2
+      volumes: [ ]
+    console:
+      image:
+        repository: quay.io/minio/operator
+        tag: v5.0.13
+        pullPolicy: IfNotPresent
+      env: [ ]
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 0.25
+          memory: 512Mi
+      ingress:
+        enabled: false
+        ingressClassName: ""
+        labels: { }
+        annotations: { }
+        tls: [ ]
+        host: console.local
+        path: /
+        pathType: Prefix
+      volumes:
+        - name: tmp
+          emptyDir: {}
+      volumeMounts:
+        - name: tmp
+          readOnly: false
+          mountPath: /tmp/certs/CAs
