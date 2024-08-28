@@ -8,7 +8,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1-12
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 2Gi
+    size: 10Gi
     storageClass: longhorn
   enableSuperuserAccess: true
   postgresql:
@@ -17,7 +17,7 @@ spec:
       - host all all ::/0 md5
     parameters:
       max_connections: "600"
-      max_slot_wal_keep_size: 10GB
+      max_slot_wal_keep_size: 200MB
       shared_buffers: 512MB
   resources:
     requests:
