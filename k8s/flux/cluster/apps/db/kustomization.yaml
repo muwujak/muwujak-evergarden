@@ -4,7 +4,7 @@ resources:
   - cnpg/
   - minio-operator/
   - mysql/
-  - mysql-2/
+  # - mysql-2/
   - percona/
   - percona-nfs/
   - postgres/
