@@ -5,6 +5,6 @@ resources:
   - minio-operator/
   - mysql/
   # - mysql-2/
-  - percona/
-  - percona-nfs/
+  # - percona/
+  # - percona-nfs/
   - postgres/
