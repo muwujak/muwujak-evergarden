@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mageai-tailscale-ingress
+  namespace: mageai
+spec:
+  ingressClassName: tailscale
+  rules:
+    - 
+      host: mageai-homelab.taildd1ad.ts.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mageai
+                port:
+                  number: 6789
+  defaultBackend:
+    service:
+      name: mageai
+      port:
+        number: 6789
+  tls:
+    - hosts:
+        - mageai-homelab.taildd1ad.ts.net
+  
