@@ -2,15 +2,14 @@ name: Release Charts
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
   workflow_dispatch:
 
 jobs:
-  release:
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
+  checks:
+    runs-on:
+      group: default
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -21,8 +20,8 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
+
+      - name: Run Snyk to check Kubernetes manifest file for issues
+        uses: snyk/actions/iac@master
         env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_SKIP_EXISTING: true
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
