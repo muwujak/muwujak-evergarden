@@ -10,6 +10,7 @@ resources:
 - infisical.yaml
 - ingress-nginx.yaml
 - jetstack-charts.yaml
+- localstack.yaml
 - longhorn.yaml
 - mageai.yaml
 - minio-operator.yaml

@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: localstack-charts
+  namespace: flux-system
+spec:
+  interval: 2h
+  url: https://helm.localstack.cloud
+  timeout: 5m
