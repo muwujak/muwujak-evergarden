@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: metrics-server-tailscale-ingress
+  namespace: kube-system
+spec:
+  ingressClassName: tailscale
+  rules:
+    - 
+      host: metrics-server-homelab.taildd1ad.ts.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: metrics-server
+                port:
+                  number: 443
+  defaultBackend:
+    service:
+      name: metrics-server
+      port:
+        number: 443
+  tls:
+    - hosts:
+        - metrics-server-homelab.taildd1ad.ts.net
+  
