@@ -11,7 +11,7 @@ spec:
       version: 0.6.16
       sourceRef:
         kind: HelmRepository
-        name: localstack-repo
+        name: localstack-charts
         namespace: flux-system
   interval: 2h
   maxHistory: 2
