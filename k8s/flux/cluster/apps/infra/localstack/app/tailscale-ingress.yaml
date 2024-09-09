@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: localstack-tailscale-ingress
+  namespace: kube-system
+spec:
+  ingressClassName: tailscale
+  rules:
+    - 
+      host: localstack-homelab.taildd1ad.ts.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: localstack
+                port:
+                  number: 4566
+  defaultBackend:
+    service:
+      name: localstack
+      port:
+        number: 4566
+  tls:
+    - hosts:
+        - localstack-homelab.taildd1ad.ts.net
+  
