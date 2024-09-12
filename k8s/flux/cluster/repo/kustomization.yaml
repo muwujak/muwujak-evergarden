@@ -5,6 +5,7 @@ resources:
 - bitnami.yaml
 - cloudnative-pg.yaml
 - grafana.yaml
+- harbor.yaml
 - hashicorp.yaml
 - external-dns.yaml
 - infisical.yaml
