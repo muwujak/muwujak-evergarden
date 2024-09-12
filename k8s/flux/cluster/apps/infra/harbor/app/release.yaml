@@ -1,0 +1,83 @@
+---
+# yaml-language-server: $schema=https://github.com/fluxcd-community/flux2-schemas/raw/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: harbor
+      version: 1.15.1
+      sourceRef:
+        kind: HelmRepository
+        name: harbor
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    expose:
+      type: loadBalancer
+      tls:
+        certSource: secret
+        secret:
+          secretName: tls.harbor
+      loadBalancer:
+        name: harbor-svc
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "harbor-ingress.mujak.id"
+    externalURL: https://harbor-ingress.mujak.id
+    ipFamily:
+      ipv6:
+        enabled: false
+    persistence:
+      enabled: true
+      persistentVolumeClaim:
+        registry:
+          existingClaim: harbor-registry-v1
+          storageClass: nfs-provision
+          subPath: registry
+        jobService:
+          jobLog:
+            storageClass: nfs-provision
+        database:
+          storageClass: nfs-provision
+        redis:
+          storageClass: nfs-provision
+        trivy:
+          storageClass: nfs-provision
+
+    database:
+      type: internal
+
+#      imageChartStorage:
+#        type: s3
+#        s3:
+#          bucket: kubernetes-registry
+#          accesskey: ${AWS_SECRET_KEY_ID}
+#          secretkey: ${AWS_SECRET_KEY}
+#          regionendpoint: https://${SECRET_BACKUP_SERVER}
+#          rootdirectory: /prod
+
+#    # our CSI does not support ReadWriteMany so we must use Recreate on pods
+#    updateStrategy:
+#      type: Recreate
+
+    harborAdminPassword: "${SECRET_HARBOR_ADMIN_PASSWORD}"
+    # The secret key used for encryption. Must be a string of 16 chars.
+    secretKey: "${SECRET_HARBOR_ENCRPYTION_KEY}"
+
+    notary:
+      enabled: false
+
+    nginx:
+      podAnnotations:
+        secret.reloader.stakater.com/reload: tls.harbor

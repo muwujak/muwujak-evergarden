@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: localstack-tailscale-ingress
+spec:
+  ingressClassName: tailscale
+  rules:
+    - host: harbor-ingress.mujak.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: harbor-svc
+                port:
+                  number: 80
+  defaultBackend:
+    service:
+      name: harbor-svc
+      port:
+        number: 80
+  tls:
+  - hosts: 
+    - harbor-ingress.mujak.id
+    secretName: harbor-ingress-certs
