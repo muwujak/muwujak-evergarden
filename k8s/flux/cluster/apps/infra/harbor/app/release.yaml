@@ -26,14 +26,14 @@ spec:
   values:
     expose:
       type: loadBalancer
-      tls:
-        certSource: secret
-        secret:
-          secretName: tls.harbor
+      # tls:
+      #   certSource: secret
+      #   secret:
+      #     secretName: tls.harbor
       loadBalancer:
         name: harbor-svc
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: "harbor-ingress.mujak.id"
+        # annotations:
+        #   external-dns.alpha.kubernetes.io/hostname: "harbor-ingress.mujak.id"
     externalURL: https://harbor-ingress.mujak.id
     ipFamily:
       ipv6:
