@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - busybox/
   - mageai/
-  - metabase/
+  # - metabase/
   # - tile38/
