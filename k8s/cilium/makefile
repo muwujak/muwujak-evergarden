@@ -1,6 +1,6 @@
 # Makefile
 
-version := 1.15.6
+version := 1.16.3
 
 install:
 	@cilium install -f config.yaml --version $(version)

@@ -16,8 +16,8 @@
 #   hostLegacyRouting: true # Migration: Allow for routing between Cilium and the existing overlay
 
 
-kubeProxyReplacement: "strict"
-k8sServiceHost: "192.168.227.11"
+kubeProxyReplacement: True
+k8sServiceHost: "10.227.0.10"
 k8sServicePort: "6443"
 hostServices:
   enabled: false
@@ -30,7 +30,6 @@ hostPort:
 image:
   pullPolicy: "IfNotPresent"
 k8s-require-ipv4-pod-cidr: true
-tunnel: "vxlan"
 cluster:
   name: "cilium-cluster"
 operator:
