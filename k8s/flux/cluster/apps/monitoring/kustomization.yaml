@@ -2,10 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - dark/
-  - kube-prometheus-stack/
-  - loki/
+  # - kube-prometheus-stack/
+  # - loki/
   # - loki-stack/
-  - metrics-server
+  # - metrics-server
   - promtail/
   # - tempo/
-  - weaveworks/
+  # - weaveworks/
