@@ -5,8 +5,8 @@ resources:
 # - db
 - default
 # - infra
-- monitoring
-- network
+# - monitoring
+# - network
 # - security
 # - storage
 # - testing
